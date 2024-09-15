@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>ContactUs</title>
+    <link rel="stylesheet" href="style2.css" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" type="image/jpg" href="../static/images/favicon.ico"/>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "montserrat", sans-serif;
+      }
+      .logo{
+        height: 50px;
+        padding-right: 15px;
+        padding-left: 5px;
+      }
+      .contact-section {
+        background: url(../static/images/bg.png) no-repeat center;
+        background-size: cover;
+        padding: 54px 0;
+      }
+      .contact-section h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 50px;
+      }
+      .wrapper{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }      
+      .border {
+        width: 100px;
+        height: 10px;
+        background: #34495e;
+        margin: 40px auto;
+      }
+      .contact-form {
+        max-width: 600px;
+        margin: auto;
+        padding: 0 10px;
+        overflow: hidden;
+      }
+      .contact-form-text {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 16px 0;
+        border: 0;
+        background: #111;
+        padding: 20px 40px;
+        outline: none;
+        color: #ddd;
+        transition: 0.5s;
+      }
+      .contact-form-text:focus {
+        box-shadow: 0 0 10px 4px #34495e;
+      }
+      textarea.contact-form-text {
+        resize: none;
+        height: 120px;
+      }
+      .contact-form-btn {
+        float: right;
+        border: 0;
+        background: #34495e;
+        color: #fff;
+        padding: 12px 50px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+      }
+      .contact-form-btn:hover {
+        background: #2980b9;
+      }
+      .btn_grp{
+        display: flex;
+      }
+      
+      .btn_grp .btn{
+        width: 225px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background: #fff;
+        margin: 0 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 14px;
+      }
+      
+      .btn_grp .btn.btn_info,
+      .alert_item.alert_info{
+        background: #cde8f5;
+        color: #4480ae;
+      }
+      
+      .btn_grp .btn.btn_warning,
+      .alert_item.alert_warning{
+        background: #f8f3d6;
+        color: #967132;
+      }
+      
+      .btn_grp .btn.btn_error,
+      .alert_item.alert_error{
+        background: #ecc8c5;
+        color: #b32f2d;
+      }
+      
+      .btn_grp .btn.btn_success,
+      .alert_item.alert_success{
+        background: #def2d6;
+        color: #5a7052;
+      }
+      
+      .btn_grp .btn.btn_info:hover{
+        background: #a5c7d8;
+      }
+      
+      .btn_grp .btn.btn_warning:hover{
+        background: #dcd4a2;
+      }
+      
+      .btn_grp .btn.btn_error:hover{
+        background: #c79995;
+      }
+      
+      .btn_grp .btn.btn_success:hover{
+        background: #adc5a5;
+      }
+      
+      .alert_wrapper{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        visibility: hidden;
+      }
+      
+      .alert_backdrop{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #2d333f;
+        opacity: 0.9;
+        z-index: 2;
+      }
+      
+      .alert_wrapper .alert_item{
+        z-index: 3;	
+        position: fixed;
+        top: -100%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        display: flex;
+        align-items: center;
+        padding: 25px 50px;
+        border-radius: 3px;
+        transition: all 0.2s ease;
+      }
+      
+      .alert_wrapper .alert_item .data{
+        margin: 0 50px;
+      }
+      .alert_wrapper .alert_item .data .title{
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      .alert_wrapper .alert_item .data span{
+        font-weight: 700;
+      }
+      .alert_wrapper .alert_item .data .sub{
+        font-size: 14px;
+        font-weight: 100;
+      }
+      .alert_wrapper .alert_item .icon{
+        font-size: 32px;
+      }
+      .alert_wrapper .alert_item .close{
+        cursor: pointer;
+      }
+      
+      .alert_item.alert_info .close:hover{
+        color: #a5c7d8;
+      }
+      
+      .alert_item.alert_warning .close:hover{
+        color: #dcd4a2;
+      }
+      
+      .alert_item.alert_error .close:hover{
+        color: #c79995;
+      }
+      
+      .alert_item.alert_success .close:hover{
+        color: #adc5a5;
+      }
+      
+      .alert_wrapper.active{
+        visibility: visible;
+      }
+      .alert_wrapper.active .alert_item{
+        top: 50%;
+      }
+      #preloader {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full height of the viewport */
+        background-color: #f0f0f0; /* Background for the loader */
+    }
+    
+    .preloader {
+        width: 100px; /* Size of the football image */
+        animation: bounce 1s infinite ease-in-out;
+    }
+    
+    /* Keyframe animation for bouncing effect */
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0); /* Starting and ending position */
+        }
+        50% {
+            transform: translateY(-50px); /* Bouncing upward */
+        }
+    }
+    </style>
+  </head>
+  <body>
+        <!--Loader>
+        <div id="preloader">
+          <img class="preloader" src="images/loading-img.gif" alt="Loading">
+      </div-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container px-4 px-lg-5">
+        <div class="navbar-header">
+          <a class="navbar-brand" href=""><img src="../static/images/turflogo.png" class="img-responsive logo" alt=""></a>
+        </div>
+        <a class="navbar-brand" href="/">TURF RABONNA</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "booknow" %}">Our Achievements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "achivements" %}">Book Now</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url "contact" %}">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav> 
+    
+    <div class="container mt-4">
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="contact-section">
+      <h1>Contact Us</h1>
+      <div class="border"></div>
+      <form class="contact-form" action="{% url 'contact' %}" method="POST">
+        {% csrf_token %}
+        <!-- Form fields -->
+        <input type="text" class="contact-form-text" placeholder="Your Name" name="name" required />
+        <input type="text" class="contact-form-text" placeholder="Your Email" name="email" required />
+        <input type="text" class="contact-form-text" placeholder="Your Contact No" name="number" required />
+        <textarea class="contact-form-text" placeholder="Your Message" name="message" required></textarea>
+        <div class="btn btn_success"><input type="submit" class="contact-form-btn"/></div>
+    </form>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous">
+    </script>
+  </body>
+</html>
